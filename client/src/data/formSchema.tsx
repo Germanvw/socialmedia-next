@@ -123,12 +123,50 @@ export const formPostCreateFields = [
 ];
 
 export const validationLoginForm = Yup.object({
-  email: Yup.string().email('Invalid email address').required(),
-  password: Yup.string().required().min(6, 'Minimum 6 characters'),
-  // email: Yup.string().email('Invalid email address').required('Required Field'),
-  // password: Yup.string()
-  //   .required('Required Field')
-  //   .min(6, 'Minimum 6 characters'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is Required'),
+  password: Yup.string()
+    .required('Email is Required')
+    .min(6, 'Minimum 6 characters'),
+});
+
+export const validationRegisterForm = Yup.object({
+  username: Yup.string()
+    .min(3, 'Minimum 3 characters')
+    .max(30, 'Maximum 30 characters')
+    .required('Username is Required'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .max(35, 'Maximum 35 characters')
+    .required('Email is Required'),
+  firstname: Yup.string()
+    .min(3, 'Minimum 3 characters')
+    .max(20, 'Maximum 20 characters')
+    .required('Firstname is Required'),
+  lastname: Yup.string()
+    .min(3, 'Minimum 3 characters')
+    .max(20, 'Maximum 20 characters')
+    .required('Lastname is Required'),
+  gender: Yup.number().min(1, 'Select an option'),
+  country: Yup.number().min(1, 'Select an option'),
+  province: Yup.string()
+    .min(3, 'Minimum 3 characters')
+    .max(30, 'Maximum 30 characters')
+    .required('Province is Required'),
+  age: Yup.number()
+    .min(16, 'Minimum 16 years old')
+    .max(120, 'Maximum 120 years old')
+    .required('Age is Required'),
+  password: Yup.string()
+    .min(6, 'Minimum 6 characters')
+    .max(25, 'Maximum 25 characters')
+    .required('Password is Required'),
+  confirmPassword: Yup.string()
+    .min(6, 'Minimum 6 characters')
+    .max(25, 'Maximum 25 characters')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirmation Password is Required'),
 });
 
 export const validationUserUpdateForm = Yup.object({
@@ -158,44 +196,6 @@ export const validationUserUpdateForm = Yup.object({
     .required('Required')
     .min(16, 'Minimum 16 years old')
     .max(120, 'Maximum 120 years old'),
-});
-
-export const validationRegisterForm = Yup.object({
-  username: Yup.string()
-    .required('Required')
-    .min(3, 'Minimum 3 characters')
-    .max(30, 'Maximum 30 characters'),
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('Required')
-    .max(35, 'Maximum 35 characters'),
-  firstname: Yup.string()
-    .required('Required')
-    .min(3, 'Minimum 3 characters')
-    .max(20, 'Maximum 20 characters'),
-  lastname: Yup.string()
-    .required('Required')
-    .min(3, 'Minimum 3 characters')
-    .max(20, 'Maximum 20 characters'),
-  gender: Yup.number().min(1, 'Select an option'),
-  country: Yup.number().min(1, 'Select an option'),
-  province: Yup.string()
-    .required('Required')
-    .min(3, 'Minimum 3 characters')
-    .max(30, 'Maximum 30 characters'),
-  age: Yup.number()
-    .required('Required')
-    .min(16, 'Minimum 16 years old')
-    .max(120, 'Maximum 120 years old'),
-  password: Yup.string()
-    .required('Required')
-    .min(6, 'Minimum 6 characters')
-    .max(25, 'Maximum 25 characters'),
-  confirmPassword: Yup.string()
-    .required('Required')
-    .min(6, 'Minimum 6 characters')
-    .max(25, 'Maximum 25 characters')
-    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 export const validationCreateCommentForm = Yup.object({

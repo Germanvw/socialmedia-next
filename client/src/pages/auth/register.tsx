@@ -9,7 +9,7 @@ import {
   Center,
   Spinner,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Form, Formik } from 'formik';
 import { TextInput } from '../../components/elements/forms/TextInput';
 import {
@@ -27,6 +27,8 @@ import {
   startFetchGenders,
 } from '../../redux/Slices/dropdownSlice';
 import { Loading } from '../../components/elements/Loading';
+import { handleAuthRoute } from '../../helpers/routeHandler';
+import { useRouter } from 'next/router';
 
 const Register = () => {
   const {
@@ -35,14 +37,21 @@ const Register = () => {
     loading: loadingDropdown,
   } = useAppSelector((state) => state.dropdown);
   const { loading } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
+
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(startFetchCountries());
     dispatch(startFetchGenders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!countries || !genders) return <Loading />;
+  handleAuthRoute(user!, router);
+
+  if (!countries || !genders || user) return <Loading />;
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} py={12} px={{ base: 6, lg: 12 }}>
@@ -53,14 +62,15 @@ const Register = () => {
         </Stack>
         <Box
           rounded={'lg'}
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           bg={useColorModeValue('light', 'dark')}
           boxShadow={'lg'}
           p={8}
         >
           <Formik
             initialValues={initialFormRegister}
-            onSubmit={(values) => dispatch(startRegister(values))}
             validationSchema={validationRegisterForm}
+            onSubmit={(values) => dispatch(startRegister(values))}
           >
             {(props) => (
               <Form className='formik-form' noValidate>
@@ -71,28 +81,26 @@ const Register = () => {
                     ))}
                   </Stack>
                 ))}
-                <>
-                  <Stack direction={{ base: ' column', lg: 'row' }}>
-                    <Box flex={1} pb='24px'>
-                      <DropdownInput
-                        list={genders}
-                        label='Gender'
-                        onChange={props.handleChange}
-                      />
-                    </Box>
-                    <Box flex={1} pb='24px'>
-                      <DropdownInput
-                        list={countries}
-                        label='Country'
-                        onChange={props.handleChange}
-                      />
-                    </Box>
-                  </Stack>
-                </>
+                <Stack direction={{ base: 'column', lg: 'row' }}>
+                  <Box flex={1} pb='24px'>
+                    <DropdownInput
+                      list={genders}
+                      label='Gender'
+                      onChange={props.handleChange}
+                    />
+                  </Box>
+                  <Box flex={1} pb='24px'>
+                    <DropdownInput
+                      list={countries}
+                      label='Country'
+                      onChange={props.handleChange}
+                    />
+                  </Box>
+                </Stack>
                 {formRegisterFieldSecond?.map((i, index) => (
                   <Stack key={index} direction={{ base: 'column', lg: 'row' }}>
                     {i.map((input) => (
-                      <TextInput {...input} key={input.name} />
+                      <TextInput {...input} key={input.name} required={true} />
                     ))}
                   </Stack>
                 ))}
@@ -122,6 +130,7 @@ const Register = () => {
                     _hover={{
                       bg: 'blue.500',
                     }}
+                    type='submit'
                   >
                     Sign up
                   </Button>

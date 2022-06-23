@@ -20,12 +20,20 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { startLogin } from '../../redux/Slices/authSlice';
 import { TextInput } from '../../components/elements/forms/TextInput';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { handleAuthRoute } from '../../helpers/routeHandler';
 
 const Login: NextPage = () => {
-  const { loading } = useAppSelector((state) => state.auth);
+  const { loading, user } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  handleAuthRoute(user!, router);
+
+  if (user) return <></>;
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} width='100%'>
       <Stack spacing={8} mx={'auto'} py={6} px={{ base: 6, lg: 12 }}>
@@ -34,6 +42,7 @@ const Login: NextPage = () => {
         </Stack>
         <Box
           rounded={'lg'}
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           bg={useColorModeValue('light', 'dark')}
           boxShadow={'lg'}
           p={8}
@@ -47,9 +56,7 @@ const Login: NextPage = () => {
               {() => (
                 <Form className='formik-form' noValidate>
                   {formLoginFields.map((input, index) => (
-                    <>
-                      <TextInput {...input} key={index} required={true} />
-                    </>
+                    <TextInput {...input} key={index} required={true} />
                   ))}
                   <Stack spacing={10}>
                     <Stack

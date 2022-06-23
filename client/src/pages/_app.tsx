@@ -5,6 +5,7 @@ import { customTheme } from '../styles/theme';
 import { Provider } from 'react-redux';
 import { store } from '../redux/index';
 import Head from 'next/head';
+import { AuthProvider } from '../components/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ColorModeScript
             initialColorMode={customTheme.config.initialColorMode}
           />
-          <Template component={<Component {...pageProps} />} />
+          <AuthProvider>
+            <Template component={<Component {...pageProps} />} />
+          </AuthProvider>
         </Provider>
       </ChakraProvider>
     </>
