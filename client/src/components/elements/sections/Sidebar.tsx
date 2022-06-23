@@ -41,9 +41,8 @@ const SidebarItem = ({ onClose, ...rest }: any) => {
   return (
     <Box
       transition='3s ease'
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRight='1px'
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      bg={useColorModeValue('light', 'dark')}
+      borderRightWidth='1px'
       w={{ base: 'full', md: 60 }}
       h='100vh'
       {...rest}

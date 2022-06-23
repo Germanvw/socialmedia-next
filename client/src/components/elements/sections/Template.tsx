@@ -25,9 +25,9 @@ export const Template = ({ component }: any) => {
         h='100vh'
       >
         <Flex direction='row'>
-          <Sidebar onClose={onClose} isOpen={isOpen} />
+          {user && <Sidebar onClose={onClose} isOpen={isOpen} />}
           <Flex direction='column' w='100%'>
-            <Header onOpen={onOpen} user={user} />
+            {user && <Header onOpen={onOpen} user={user} />}
             <Stack
               justifyContent='center'
               alignItems='center'
