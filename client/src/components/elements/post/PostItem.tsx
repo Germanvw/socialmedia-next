@@ -8,6 +8,7 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { PostInteractions } from './PostInteractions';
 
 interface FeedItemProp {
   feed: any;
@@ -15,8 +16,9 @@ interface FeedItemProp {
 }
 
 export const PostItem = ({ feed, commentAmmount }: FeedItemProp) => {
-  const { id, image, text, user, likes, comments, created_at } = feed;
-  const { username, firstname, lastname } = user;
+  const { id, image, text, user, likes, created_at } = feed;
+  const { id: userId, username, firstname, lastname } = user;
+
   return (
     <Center py={6}>
       <Stack
@@ -71,6 +73,14 @@ export const PostItem = ({ feed, commentAmmount }: FeedItemProp) => {
           <Text color={'gray.500'}>
             {new Date(created_at).toLocaleDateString()}
           </Text>
+          <Stack w='100%'>
+            <PostInteractions
+              id={id}
+              userId={userId}
+              likes={likes}
+              comments={commentAmmount || 0}
+            />
+          </Stack>
           {/* <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
             <Badge
               px={2}
