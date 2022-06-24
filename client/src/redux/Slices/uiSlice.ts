@@ -4,12 +4,26 @@ interface uiSliceInitialProps {
   error: string | null;
   sidebarOpen: boolean;
   darkTheme: boolean;
+  alert: AlertProps;
+}
+
+interface AlertProps {
+  status: 'error' | 'success' | 'info' | 'warning';
+  title: string;
+  body: string;
+  show: boolean;
 }
 
 const initialState: uiSliceInitialProps = {
   error: null,
   sidebarOpen: false,
   darkTheme: false,
+  alert: {
+    status: 'error',
+    title: '',
+    body: '',
+    show: false,
+  },
 };
 
 export const uiSlice = createSlice({
@@ -24,6 +38,9 @@ export const uiSlice = createSlice({
     },
     handleDarkTheme: (state, { payload }) => {
       state.darkTheme = payload;
+    },
+    handleAlert: (state, { payload }) => {
+      state.alert = payload;
     },
   },
 });

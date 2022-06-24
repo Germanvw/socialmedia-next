@@ -6,6 +6,7 @@ import {
 import { UserAtFriendList } from '../../interfaces/UserInterfaces';
 import { friendServices } from '../Services/friendServices';
 import { authActions } from './authSlice';
+import { uiActions } from './uiSlice';
 
 const initialState: InitStateFriendProps = {
   loading: false,
@@ -105,11 +106,29 @@ export const startFriendRequestFetch = createAsyncThunk(
 
 export const startFriendRequestSend = createAsyncThunk(
   'friend/startFriendRequestSend',
-  async (id: number, { rejectWithValue }) => {
+  async (id: number, { dispatch }) => {
     try {
-      return await friendServices.friendRequestSend(id);
+      const answ = await friendServices.friendRequestSend(id);
+      if (answ?.ok)
+        dispatch(
+          uiActions.handleAlert({
+            status: 'success',
+            title: 'Success',
+            body: 'Friend Request Sent!',
+            show: true,
+          })
+        );
+      return answ;
     } catch (err: any) {
-      return rejectWithValue(err.toString().split(': ')[1]);
+      console.log(err.toString());
+      return dispatch(
+        uiActions.handleAlert({
+          status: 'error',
+          title: 'Error',
+          body: err.toString().split(': ')[1],
+          show: true,
+        })
+      );
     }
   }
 );

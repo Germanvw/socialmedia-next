@@ -3,7 +3,14 @@ import { commentServices } from '../Services/commentServices';
 import { CommentItemProp } from '../../interfaces/CommentInterfaces';
 import { postActions } from './postSlice';
 
-const initialState = {
+interface CommentState {
+  loading: boolean;
+  error: boolean;
+  ammount: number;
+  commentList: CommentItemProp[];
+}
+
+const initialState: CommentState = {
   loading: false,
   error: false,
   ammount: 0,

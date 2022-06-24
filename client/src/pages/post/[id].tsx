@@ -19,7 +19,6 @@ import {
   startCreateComment,
   startFetchComments,
 } from '../../redux/Slices/commentSlice';
-import { useState } from 'react';
 import { Form, Formik } from 'formik';
 import { validationCreateCommentForm } from '../../data/formSchema';
 
@@ -98,7 +97,7 @@ const Post = () => {
         )}
       </Formik>
       {commentList?.length > 0 ? (
-        commentList.map(({ user, id, created_at, comment }) => (
+        commentList?.map(({ user, id, created_at, comment }) => (
           <CommentItem
             key={id}
             id={id}

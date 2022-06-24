@@ -1,11 +1,7 @@
 import {
-  Avatar,
-  Box,
   Center,
   Flex,
-  Heading,
   Image,
-  Spacer,
   Stack,
   Text,
   useColorModeValue,
@@ -50,7 +46,7 @@ export const PostItem = ({ feed }: FeedItemProp) => {
             username={user?.username}
             firstname={user?.firstname}
             lastname={user?.lastname}
-            image={image}
+            image={user?.image}
             created_at={created_at}
           />
 

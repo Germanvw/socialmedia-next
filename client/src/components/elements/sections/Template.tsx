@@ -8,11 +8,13 @@ import {
 import { useAppSelector } from '../../../hooks/useRedux';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { AlertItem } from '../AlertItem';
 
 export const Template = ({ component }: any) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAppSelector((state) => state.auth);
+
   const bgColor = { light: '#ffffff', dark: '#212121' };
   const color = { light: '#404040', dark: '#EDEEEE' };
 
@@ -33,6 +35,9 @@ export const Template = ({ component }: any) => {
               alignItems='center'
               height='calc(100% - 80px)'
             >
+              <Box position='absolute' top='90' right='10px'>
+                <AlertItem />
+              </Box>
               {component}
             </Stack>
           </Flex>

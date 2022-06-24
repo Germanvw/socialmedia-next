@@ -5,13 +5,13 @@ import {
   Center,
   Flex,
   Heading,
-  Image,
   Stack,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../../hooks/useRedux';
 import { UserDataProps } from '../../../interfaces/UserInterfaces';
+import { MetaData } from './MetaData';
 
 export const UserCard = ({ user }: { user: UserDataProps }) => {
   const { firstname, lastname, image, metaData, username, province, country } =
@@ -40,7 +40,6 @@ export const UserCard = ({ user }: { user: UserDataProps }) => {
             }}
           />
         </Flex>
-
         <Box p={6}>
           <Stack spacing={0} align={'center'} mb={5}>
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
@@ -51,26 +50,7 @@ export const UserCard = ({ user }: { user: UserDataProps }) => {
             </Text>
             <Text color={'gray.500'}>{`${province} ${country?.name}`}</Text>
           </Stack>
-          <Stack direction={'row'} justify={'center'} spacing={6}>
-            <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>{likes}</Text>
-              <Text fontSize={'sm'} color={'gray.500'}>
-                Likes
-              </Text>
-            </Stack>
-            <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>{friends}</Text>
-              <Text fontSize={'sm'} color={'gray.500'}>
-                Friends
-              </Text>
-            </Stack>
-            <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>{posts}</Text>
-              <Text fontSize={'sm'} color={'gray.500'}>
-                Posts
-              </Text>
-            </Stack>
-          </Stack>
+          <MetaData posts={posts} likes={likes} friends={friends} />
           <Button
             w={'full'}
             mt={8}
