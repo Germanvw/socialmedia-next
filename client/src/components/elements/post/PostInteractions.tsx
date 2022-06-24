@@ -12,7 +12,7 @@ interface Props {
 
 export const PostInteractions = ({ id, userId, likes, comments }: Props) => {
   return (
-    <Stack direction='row'>
+    <Stack direction='row' width='100%'>
       <Stack direction='row'>
         <BtnLike likes={likes} id={id} userId={userId} />
         <BtnComments id={id} comments={comments} />
