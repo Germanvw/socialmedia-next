@@ -6,13 +6,13 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useAppSelector } from '../../../hooks/useRedux';
 import { MetaData } from '../user/MetaData';
 import { UserAvatar } from '../user/UserAvatar';
 import { useRouter } from 'next/router';
-import { FaHome } from 'react-icons/fa';
 import { BtnLink } from '../buttons/BtnLink';
 import { SidebarItemProps, sidebarItems } from '../../../data/sidebarItems';
 
@@ -22,6 +22,7 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ onClose, isOpen }: SidebarProps) => {
+  const [mdBreakpoint] = useMediaQuery('(max-width: 768px)');
   return (
     <>
       <SidebarItem
@@ -30,7 +31,7 @@ export const Sidebar = ({ onClose, isOpen }: SidebarProps) => {
       />
       <Drawer
         autoFocus={false}
-        isOpen={isOpen}
+        isOpen={isOpen && mdBreakpoint}
         placement='left'
         onClose={onClose}
         returnFocusOnClose={false}
@@ -59,7 +60,7 @@ const SidebarItem = ({ onClose, ...rest }: any) => {
       transition='3s ease'
       bg={useColorModeValue('light', 'dark')}
       borderRightWidth='1px'
-      w={{ base: 'full', md: 60 }}
+      w={{ base: 'full', lg: 60 }}
       h='100vh'
       {...rest}
     >

@@ -65,7 +65,6 @@ export const Template = ({ component }: any) => {
                       right='0px'
                       // eslint-disable-next-line react-hooks/rules-of-hooks
                       bg={useColorModeValue('light', 'dark')}
-                      pos='relative'
                       position='fixed'
                     >
                       <SocialBar />
