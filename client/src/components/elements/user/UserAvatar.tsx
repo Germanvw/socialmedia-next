@@ -14,7 +14,7 @@ export const UserAvatar = ({
   const { image, userId, firstname, lastname } = avatarData;
   return (
     <>
-      <Box _hover={{ cursor: 'pointer' }} px={space ? '20px' : 0}>
+      <Box _hover={{ cursor: 'pointer' }} pr={space ? '20px' : 0}>
         <Avatar src={image} />
       </Box>
       <Stack direction={'column'} spacing={0} fontSize={'sm'}>

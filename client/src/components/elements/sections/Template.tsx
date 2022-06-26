@@ -42,27 +42,34 @@ export const Template = ({ component }: any) => {
               <Box position='absolute' top='90' right='10px' zIndex={3}>
                 <AlertItem />
               </Box>
-              <Stack display={{ base: 'flex', lg: 'none' }}>
-                <SocialBar />
-              </Stack>
-              <Spacer />
-              {component}
-              <Spacer />
-              <Stack display={{ base: 'none', lg: 'flex' }}>
-                <Stack
-                  h='100vh'
-                  top='0px'
-                  pt='80px'
-                  zIndex={0}
-                  right='0px'
-                  bg={useColorModeValue('light', 'dark')}
-                  pos='relative'
-                  position='fixed'
-                >
+              {user && (
+                <Stack display={{ base: 'flex', lg: 'none' }}>
                   <SocialBar />
                 </Stack>
-                <Stack w='320px'></Stack>
-              </Stack>
+              )}
+              <Spacer />
+              {component}
+              {user && (
+                <>
+                  <Spacer />
+                  <Stack display={{ base: 'none', lg: 'flex' }}>
+                    <Stack
+                      h='100vh'
+                      top='0px'
+                      pt='80px'
+                      zIndex={0}
+                      right='0px'
+                      // eslint-disable-next-line react-hooks/rules-of-hooks
+                      bg={useColorModeValue('light', 'dark')}
+                      pos='relative'
+                      position='fixed'
+                    >
+                      <SocialBar />
+                    </Stack>
+                    <Stack w='320px'></Stack>
+                  </Stack>
+                </>
+              )}
             </Stack>
           </Flex>
         </Flex>

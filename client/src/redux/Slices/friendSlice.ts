@@ -142,7 +142,26 @@ export const startFriendRequestResponse = createAsyncThunk(
     try {
       const answ = await friendServices.friendRequestResponse(response);
       console.log(answ);
-      if (answ.response === 1) dispatch(startFriendAdd(answ.friend));
+      if (answ.response === 1) {
+        dispatch(startFriendAdd(answ.friend));
+        dispatch(
+          uiActions.handleAlert({
+            status: 'success',
+            title: 'Success',
+            body: 'Friend Request Accepted!',
+            show: true,
+          })
+        );
+      } else {
+        dispatch(
+          uiActions.handleAlert({
+            status: 'error',
+            title: 'Success',
+            body: 'Friend Request Declined!',
+            show: true,
+          })
+        );
+      }
       return answ;
     } catch (err: any) {
       return rejectWithValue(err.toString().split(': ')[1]);

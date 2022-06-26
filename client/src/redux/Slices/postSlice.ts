@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { NextRouter } from 'next/router';
 import { PostItemProps } from '../../interfaces/PostInterfaces';
 import { postServices } from '../Services/postServices';
 import { authActions } from './authSlice';
+import { uiActions } from './uiSlice';
 interface InitStatePostProps {
   loading: boolean;
   postList: PostItemProps[];
@@ -73,6 +75,9 @@ export const postSlice = createSlice({
           (post) => post.id !== parseInt(payload.answ.id)
         );
         state.loading = false;
+        if (payload.redirect) {
+          payload?.router?.push('/');
+        }
       }
     );
     builder.addMatcher(
@@ -141,7 +146,12 @@ export const startPostCreate = createAsyncThunk(
 export const startPostDelete = createAsyncThunk(
   'post/deletePost',
   async (
-    data: { id: number; likesCount: number; redirect: boolean },
+    data: {
+      id: number;
+      likesCount: number;
+      redirect: boolean;
+      router?: NextRouter;
+    },
     { rejectWithValue, dispatch }
   ) => {
     try {
@@ -149,7 +159,15 @@ export const startPostDelete = createAsyncThunk(
       if (answ.ok) {
         dispatch(authActions.handlePostQuantity(-1));
         dispatch(authActions.handleLikeQuantity(-data.likesCount));
-        return { answ, redirect: data.redirect };
+        dispatch(
+          uiActions.handleAlert({
+            status: 'success',
+            title: 'Success',
+            body: 'Post Deleted',
+            show: true,
+          })
+        );
+        return { answ, redirect: data.redirect, router: data?.router };
       }
     } catch (err: any) {
       return rejectWithValue(err.toString().split(': ')[1]);
