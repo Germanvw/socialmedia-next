@@ -2,11 +2,19 @@ import { Avatar, Box, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { HeaderProps } from '../post/PostHeader';
 
-export const UserAvatar = ({ avatarData }: any) => {
-  const { image, userId, firstname, lastname, username } = avatarData;
+export const UserAvatar = ({
+  avatarData,
+  space,
+  label,
+}: {
+  avatarData: HeaderProps;
+  space?: boolean;
+  label: string;
+}) => {
+  const { image, userId, firstname, lastname } = avatarData;
   return (
     <>
-      <Box _hover={{ cursor: 'pointer' }}>
+      <Box _hover={{ cursor: 'pointer' }} px={space ? '20px' : 0}>
         <Avatar src={image} />
       </Box>
       <Stack direction={'column'} spacing={0} fontSize={'sm'}>
@@ -27,7 +35,7 @@ export const UserAvatar = ({ avatarData }: any) => {
             mb={4}
             _hover={{ cursor: 'pointer' }}
           >
-            @{username}
+            {label}
           </Text>
         </Link>
       </Stack>

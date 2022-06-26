@@ -22,7 +22,7 @@ export const queryResponseFriendRequest: string =
 
 export const queryFetchFriendRequestReceived: string =
   queryConstructor2 +
-  ", JSON_OBJECT('id',FR.id,'state',JSON_OBJECT('state',FR.accepted,'name',AC.name)) as requestData FROM FRIEND_REQUEST AS FR INNER JOIN USER AS U ON U.id=FR.sender INNER JOIN COUNTRY AS C ON C.id=U.country INNER JOIN GENDER AS G ON G.id=U.GENDER INNER JOIN ACCEPTED AS AC ON AC.id=FR.accepted WHERE FR.receiver = (?) AND FR.active = 1 AND FR.accepted= 2";
+  ", JSON_OBJECT('id',FR.id,'state',JSON_OBJECT('state',FR.accepted,'name',AC.name)) as requestData FROM FRIEND_REQUEST AS FR INNER JOIN USER AS U ON U.id=FR.sender INNER JOIN COUNTRY AS C ON C.id=U.country INNER JOIN GENDER AS G ON G.id=U.GENDER INNER JOIN ACCEPTED AS AC ON AC.id=FR.accepted WHERE FR.receiver = (?) AND FR.active =1 AND FR.accepted= 2";
 
 // Friend_List
 export const queryCheckAlreadyYourFriend: string =

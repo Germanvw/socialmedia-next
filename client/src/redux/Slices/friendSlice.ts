@@ -141,6 +141,7 @@ export const startFriendRequestResponse = createAsyncThunk(
   ) => {
     try {
       const answ = await friendServices.friendRequestResponse(response);
+      console.log(answ);
       if (answ.response === 1) dispatch(startFriendAdd(answ.friend));
       return answ;
     } catch (err: any) {

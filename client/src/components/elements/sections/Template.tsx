@@ -39,7 +39,7 @@ export const Template = ({ component }: any) => {
               height='calc(100% - 80px)'
               direction={{ base: 'column', lg: 'row' }}
             >
-              <Box position='absolute' top='90' right='10px'>
+              <Box position='absolute' top='90' right='10px' zIndex={3}>
                 <AlertItem />
               </Box>
               <Stack display={{ base: 'flex', lg: 'none' }}>
