@@ -1,5 +1,6 @@
 import { Avatar, Box, Heading, Spacer, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { UserAvatar } from '../user/UserAvatar';
 
 export interface HeaderProps {
   userId: number;
@@ -7,6 +8,9 @@ export interface HeaderProps {
   firstname: string;
   lastname: string;
   image: string;
+}
+
+interface HeaderWithCreated extends HeaderProps {
   created_at: string;
 }
 
@@ -17,7 +21,7 @@ export const PostHeader = ({
   lastname,
   image,
   created_at,
-}: HeaderProps) => {
+}: HeaderWithCreated) => {
   return (
     <Stack
       direction={{ base: 'column', sm: 'row' }}
@@ -26,34 +30,12 @@ export const PostHeader = ({
       justifyContent='center'
       alignItems={{ base: 'center', sm: 'flex-start' }}
     >
-      <Box _hover={{ cursor: 'pointer' }}>
-        <Avatar src={image} />
-      </Box>
-      <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-        <Link href={`/user/${userId}`}>
-          <Heading
-            fontSize={'lg'}
-            fontFamily={'body'}
-            _hover={{ cursor: 'pointer' }}
-          >
-            {`${firstname} ${lastname}`}
-          </Heading>
-        </Link>
-        <Link href={`/user/${userId}`}>
-          <Text
-            fontWeight={600}
-            color={'gray.500'}
-            size='sm'
-            mb={4}
-            _hover={{ cursor: 'pointer' }}
-          >
-            @{username}
-          </Text>
-        </Link>
-      </Stack>
+      <UserAvatar
+        avatarData={{ userId, username, firstname, lastname, image }}
+      />
       <Spacer />
       <Text color={'gray.500'}>
-        {new Date(created_at).toLocaleDateString()}
+        {new Date(created_at!).toLocaleDateString()}
       </Text>
     </Stack>
   );

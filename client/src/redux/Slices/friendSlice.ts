@@ -179,6 +179,14 @@ export const startFriendRemove = createAsyncThunk(
     try {
       const answ = await friendServices.friendRemove(id);
       // Dicrement friend count
+      dispatch(
+        uiActions.handleAlert({
+          status: 'success',
+          title: 'Success',
+          body: 'Friend Removed.',
+          show: true,
+        })
+      );
       dispatch(authActions.handleFriendsQuantity(-1));
       return answ;
     } catch (err: any) {

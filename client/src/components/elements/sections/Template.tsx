@@ -4,11 +4,14 @@ import {
   Stack,
   useDisclosure,
   Flex,
+  Spacer,
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../../hooks/useRedux';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { AlertItem } from '../AlertItem';
+import { SocialBar } from './SocialBar';
+import { useColorModeValue } from '@chakra-ui/react';
 
 export const Template = ({ component }: any) => {
   const { colorMode } = useColorMode();
@@ -34,11 +37,32 @@ export const Template = ({ component }: any) => {
               justifyContent='center'
               alignItems='center'
               height='calc(100% - 80px)'
+              direction={{ base: 'column', lg: 'row' }}
             >
               <Box position='absolute' top='90' right='10px'>
                 <AlertItem />
               </Box>
+              <Stack display={{ base: 'flex', lg: 'none' }}>
+                <SocialBar />
+              </Stack>
+              <Spacer />
               {component}
+              <Spacer />
+              <Stack display={{ base: 'none', lg: 'flex' }}>
+                <Stack
+                  h='100vh'
+                  top='0px'
+                  pt='80px'
+                  zIndex={0}
+                  right='0px'
+                  bg={useColorModeValue('light', 'dark')}
+                  pos='relative'
+                  position='fixed'
+                >
+                  <SocialBar />
+                </Stack>
+                <Stack w='320px'></Stack>
+              </Stack>
             </Stack>
           </Flex>
         </Flex>

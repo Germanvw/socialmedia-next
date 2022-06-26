@@ -36,6 +36,7 @@ export const Header = ({ onOpen, user, ...rest }: MobileProps) => {
       borderBottomWidth='1px'
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
+      zIndex={2}
     >
       <IconButton
         display={{ base: 'flex', md: 'none' }}
