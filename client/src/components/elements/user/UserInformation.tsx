@@ -9,12 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { FriendItemProps } from '../../../interfaces/UserInterfaces';
 import { MetaData } from './MetaData';
-import { Button } from '@chakra-ui/react';
 import { useAppSelector, useAppDispatch } from '../../../hooks/useRedux';
-import {
-  startFriendRemove,
-  startFriendRequestSend,
-} from '../../../redux/Slices/friendSlice';
+import { BtnFriend } from '../buttons/BtnFriend';
 
 export const UserInformation = ({ contact }: { contact: FriendItemProps }) => {
   const { user } = useAppSelector((state) => state.auth);
@@ -99,17 +95,10 @@ export const UserInformation = ({ contact }: { contact: FriendItemProps }) => {
           />
           {user?.id !== id && (
             <Box _hover={{ cursor: 'pointer' }} pt='4'>
-              <Button
-                onClick={
-                  friendList?.some((friend) => friend.id === id)
-                    ? () => dispatch(startFriendRemove(id))
-                    : () => dispatch(startFriendRequestSend(id))
-                }
-              >{`${
-                friendList?.some((friend) => friend.id === id)
-                  ? 'Delete'
-                  : 'Add'
-              } Friend`}</Button>
+              <BtnFriend
+                isFriend={friendList?.some((friend) => friend.id === id)}
+                id={id}
+              />
             </Box>
           )}
         </Stack>

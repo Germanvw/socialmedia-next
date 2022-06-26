@@ -32,7 +32,10 @@ export const Template = ({ component }: any) => {
         <Flex direction='row'>
           {user && (
             <Stack display={{ base: 'none', lg: 'flex' }}>
-              <Sidebar onClose={onClose} isOpen={isOpen} />
+              <Stack position='fixed'>
+                <Sidebar onClose={onClose} isOpen={isOpen} />
+              </Stack>
+              <Stack w='240px' className='aa'></Stack>
             </Stack>
           )}
           <Flex direction='column' w='100%'>
@@ -43,7 +46,7 @@ export const Template = ({ component }: any) => {
               height='calc(100% - 80px)'
               direction={{ base: 'column', lg: 'row' }}
             >
-              <Box position='absolute' top='90' right='10px' zIndex={3}>
+              <Box position='fixed' top='90' right='10px' zIndex={3}>
                 <AlertItem />
               </Box>
               {user && (

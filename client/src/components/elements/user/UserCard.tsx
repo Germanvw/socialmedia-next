@@ -11,11 +11,20 @@ import {
 } from '@chakra-ui/react';
 import { useAppSelector } from '../../../hooks/useRedux';
 import { UserDataProps } from '../../../interfaces/UserInterfaces';
+import { BtnFriend } from '../buttons/BtnFriend';
 import { MetaData } from './MetaData';
 
 export const UserCard = ({ user }: { user: UserDataProps }) => {
-  const { firstname, lastname, image, metaData, username, province, country } =
-    user;
+  const {
+    firstname,
+    lastname,
+    image,
+    metaData,
+    username,
+    province,
+    country,
+    id,
+  } = user;
   const { friendList } = useAppSelector((state) => state.friend);
 
   const { likes, friends, posts } = metaData;
@@ -51,21 +60,12 @@ export const UserCard = ({ user }: { user: UserDataProps }) => {
             <Text color={'gray.500'}>{`${province} ${country?.name}`}</Text>
           </Stack>
           <MetaData posts={posts} likes={likes} friends={friends} />
-          <Button
-            w={'full'}
-            mt={8}
-            bg={useColorModeValue('#151f21', 'gray.900')}
-            color={'white'}
-            rounded={'md'}
-            _hover={{
-              transform: 'translateY(-2px)',
-              boxShadow: 'lg',
-            }}
-          >
-            {friendList?.find((friend: any) => friend.username === username)
-              ? 'Remove'
-              : 'Add'}
-          </Button>
+          <Stack justifyContent='center' align='center' pt={2}>
+            <BtnFriend
+              isFriend={friendList?.some((friend) => friend.id === id)}
+              id={id}
+            />
+          </Stack>
         </Box>
       </Box>
     </Center>

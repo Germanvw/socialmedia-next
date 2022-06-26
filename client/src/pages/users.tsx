@@ -1,7 +1,7 @@
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { UserCard } from '../components/elements/user/UserCard';
-import { fetchUserAll } from '../helpers/fetchUserAll';
 import { fetchToken } from '../hooks/useFetch';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { UserDataProps } from '../interfaces/UserInterfaces';
@@ -31,11 +31,13 @@ const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <SimpleGrid columns={[1, 1, 2, 2, 3, 4]} gap={6}>
       {users?.map((user: UserDataProps) => (
-        <UserCard user={user} key={user?.id} />
+        <Box w='100%' key={user?.id}>
+          <UserCard user={user} />
+        </Box>
       ))}
-    </>
+    </SimpleGrid>
   );
 };
 
