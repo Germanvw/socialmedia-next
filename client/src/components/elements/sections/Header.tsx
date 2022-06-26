@@ -34,20 +34,19 @@ export const Header = ({ onOpen, user, ...rest }: MobileProps) => {
       alignItems='center'
       bg={useColorModeValue('light', 'dark')}
       borderBottomWidth='1px'
-      justifyContent={{ base: 'space-between', md: 'flex-end' }}
+      justifyContent={{ base: 'space-between', lg: 'flex-end' }}
       {...rest}
       zIndex={2}
     >
       <IconButton
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: 'flex', lg: 'none' }}
         onClick={onOpen}
         variant='outline'
-        aria-label='open menu'
+        aria-label='open menu asdasdas'
         icon={<FiMenu />}
       />
-
       <Text
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: 'flex', lg: 'none' }}
         fontSize='2xl'
         fontFamily='monospace'
         fontWeight='bold'

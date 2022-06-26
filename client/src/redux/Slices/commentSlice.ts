@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { commentServices } from '../Services/commentServices';
 import { CommentItemProp } from '../../interfaces/CommentInterfaces';
 import { postActions } from './postSlice';
+import { uiActions } from './uiSlice';
 
 interface CommentState {
   loading: boolean;
@@ -92,6 +93,14 @@ export const startDeleteComment = createAsyncThunk(
       const answ = await commentServices.deleteComment(id);
       // Dicrement the ammount of comments of post
       dispatch(postActions.handlePostCommentQuantity({ id: id, quantity: -1 }));
+      dispatch(
+        uiActions.handleAlert({
+          status: 'success',
+          title: 'Success',
+          body: 'Comment Removed.',
+          show: true,
+        })
+      );
       return answ;
     } catch (err: any) {
       return rejectWithValue(err.toString().split(': ')[1]);

@@ -32,6 +32,7 @@ export const PostHeader = ({
     >
       <UserAvatar
         avatarData={{ userId, username, firstname, lastname, image }}
+        label={`@ ${username}`}
       />
       <Spacer />
       <Text color={'gray.500'}>

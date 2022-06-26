@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
 interface CommentProps extends HeaderProps {
   id: number;
   text: string;
+  created_at: string;
 }
 
 export const CommentItem = ({
@@ -16,8 +17,8 @@ export const CommentItem = ({
   firstname,
   lastname,
   image,
-  created_at,
   text,
+  created_at,
 }: CommentProps) => {
   const { user } = useAppSelector((state) => state.auth);
 

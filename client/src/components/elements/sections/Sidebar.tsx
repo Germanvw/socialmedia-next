@@ -3,10 +3,18 @@ import {
   CloseButton,
   Drawer,
   DrawerContent,
-  Flex,
+  Stack,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import Link from 'next/link';
+import { useAppSelector } from '../../../hooks/useRedux';
+import { MetaData } from '../user/MetaData';
+import { UserAvatar } from '../user/UserAvatar';
+import { useRouter } from 'next/router';
+import { FaHome } from 'react-icons/fa';
+import { BtnLink } from '../buttons/BtnLink';
+import { SidebarItemProps, sidebarItems } from '../../../data/sidebarItems';
 
 interface SidebarProps {
   onClose: () => void;
@@ -38,6 +46,14 @@ export const Sidebar = ({ onClose, isOpen }: SidebarProps) => {
 };
 
 const SidebarItem = ({ onClose, ...rest }: any) => {
+  const { user } = useAppSelector((state) => state.auth);
+
+  const router = useRouter();
+
+  const handleRedirection = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <Box
       transition='3s ease'
@@ -47,12 +63,60 @@ const SidebarItem = ({ onClose, ...rest }: any) => {
       h='100vh'
       {...rest}
     >
-      <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
+      <Stack h='100vh' alignItems='center' mx='8' direction='column'>
+        <Stack
+          h='80px'
+          justifyContent={{ base: 'space-between', lg: 'center' }}
+          align='center'
+          direction='row'
+          w='100%'
+        >
+          <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
+            <Link href='/'>Logo</Link>
+          </Text>
+          <CloseButton
+            display={{ base: 'flex', md: 'none' }}
+            onClick={onClose}
+          />
+        </Stack>
+        <Stack
+          direction='column'
+          w='100%'
+          mt='80px'
+          align='center'
+          justifyContent='center'
+        >
+          <UserAvatar
+            avatarData={{
+              userId: user?.id!,
+              username: user?.username!,
+              firstname: user?.firstname!,
+              lastname: user?.lastname!,
+              image: user?.image!,
+            }}
+            label={`@ ${user?.username}`}
+          />
+          <Box py={6}>
+            <MetaData
+              friends={user?.metaData?.friends!}
+              likes={user?.metaData?.likes!}
+              posts={user?.metaData?.posts!}
+            />
+          </Box>
+          <Stack direction='column' alignItems='flex-start'>
+            {sidebarItems?.map(({ id, text, path, icon }: SidebarItemProps) => (
+              <BtnLink
+                key={id}
+                text={text}
+                onClick={() =>
+                  handleRedirection(id !== 3 ? path : `/user/${user?.id}`)
+                }
+                icon={icon}
+              />
+            ))}
+          </Stack>
+        </Stack>
+      </Stack>
     </Box>
   );
 };

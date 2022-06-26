@@ -1,5 +1,3 @@
-import { BasicUser } from './UserInterfaces';
-
 export interface CommentItemProp {
   comment: any;
   created_at: string;

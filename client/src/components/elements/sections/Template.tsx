@@ -30,7 +30,11 @@ export const Template = ({ component }: any) => {
         h='100vh'
       >
         <Flex direction='row'>
-          {user && <Sidebar onClose={onClose} isOpen={isOpen} />}
+          {user && (
+            <Stack display={{ base: 'none', lg: 'flex' }}>
+              <Sidebar onClose={onClose} isOpen={isOpen} />
+            </Stack>
+          )}
           <Flex direction='column' w='100%'>
             {user && <Header onOpen={onOpen} user={user} />}
             <Stack

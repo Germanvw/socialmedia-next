@@ -9,7 +9,7 @@ export const UserAvatar = ({
 }: {
   avatarData: HeaderProps;
   space?: boolean;
-  label: string;
+  label?: string;
 }) => {
   const { image, userId, firstname, lastname } = avatarData;
   return (
@@ -17,27 +17,29 @@ export const UserAvatar = ({
       <Box _hover={{ cursor: 'pointer' }} pr={space ? '20px' : 0}>
         <Avatar src={image} />
       </Box>
-      <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-        <Link href={`/user/${userId}`}>
-          <Heading
-            fontSize={'lg'}
-            fontFamily={'body'}
-            _hover={{ cursor: 'pointer' }}
-          >
-            {`${firstname} ${lastname}`}
-          </Heading>
-        </Link>
-        <Link href={`/user/${userId}`}>
-          <Text
-            fontWeight={600}
-            color={'gray.500'}
-            size='sm'
-            mb={4}
-            _hover={{ cursor: 'pointer' }}
-          >
-            {label}
-          </Text>
-        </Link>
+      <Stack direction='column' spacing={0} fontSize={'sm'}>
+        <Stack direction='column' justifyContent='center' align='center'>
+          <Link href={`/user/${userId}`}>
+            <Heading
+              fontSize={'lg'}
+              fontFamily={'body'}
+              _hover={{ cursor: 'pointer' }}
+            >
+              {`${firstname} ${lastname}`}
+            </Heading>
+          </Link>
+          <Link href={`/user/${userId}`}>
+            <Text
+              fontWeight={600}
+              color={'gray.500'}
+              size='sm'
+              mb={4}
+              _hover={{ cursor: 'pointer' }}
+            >
+              {label}
+            </Text>
+          </Link>
+        </Stack>
       </Stack>
     </>
   );
