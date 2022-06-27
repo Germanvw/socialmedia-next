@@ -12,9 +12,7 @@ export interface PostProp {
   comments: number;
 }
 
-export const PostList = () => {
-  const { postList } = useAppSelector((state) => state.posts);
-
+export const PostList = ({ postList }: { postList: PostItemProps[] }) => {
   return (
     <>
       {postList.length > 0 ? (

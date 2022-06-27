@@ -10,5 +10,8 @@ export const queryFetchUserAllWithPassword =
 export const queryFetchUserSingle: string =
   queryFetchUserAllWithoutPassword + ' AND U.id = ?';
 
+export const queryFetchUserByName = (id: number | string) => {
+  return queryFetchUserAllWithoutPassword + ` AND U.username Like '%${id}%'`;
+};
 export const queryUserEmailUnique: string =
   'SELECT id FROM USER WHERE email = ?';

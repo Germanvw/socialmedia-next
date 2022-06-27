@@ -10,12 +10,13 @@ import {
   startPostFetchAll,
   startPostFetchFavorite,
 } from '../redux/Slices/postSlice';
-import { Center, Flex, Heading } from '@chakra-ui/react';
+import { Center, Flex, Heading, Stack } from '@chakra-ui/react';
 import { PostList } from '../components/elements/post/PostList';
+import { SearchUser } from '../components/elements/user/SearchUser';
 
 const Home: NextPage = () => {
   const { user } = useAppSelector((state) => state.auth);
-
+  const { postList } = useAppSelector((state) => state.posts);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,12 +40,15 @@ const Home: NextPage = () => {
       width='100%'
       className='wrapper'
     >
+      <Stack mt={4}>
+        <SearchUser />
+      </Stack>
       <Center>
         <Heading mt={4} as='h1'>
           Posts
         </Heading>
       </Center>
-      <PostList />
+      <PostList postList={postList} />
     </Flex>
   );
 };

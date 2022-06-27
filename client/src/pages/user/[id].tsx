@@ -11,6 +11,7 @@ import { PostList } from '../../components/elements/post/PostList';
 
 const User = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const { postList } = useAppSelector((state) => state.posts);
   const { query } = useRouter();
 
   const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ const User = () => {
       <Heading my={4} as='h2' size='md'>
         Comments
       </Heading>
-      <PostList />
+      <PostList postList={postList} />
     </Flex>
   );
 };

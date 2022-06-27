@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { queryFetchUserByName } from '../db/querys/queryUser';
 import {
   queryFetchUserAllWithoutPassword,
   queryFetchUserSingle,
@@ -32,6 +33,25 @@ export const fetchUserSingle = (req: Request, res: Response) => {
           return res
             .status(400)
             .json({ ok: false, msg: 'User not found.', err });
+        }
+      }
+    );
+  } catch (err) {
+    return res.status(500).json({ ok: false, msg: 'Error on request' });
+  }
+};
+
+export const fetchUserByName = (req: Request, res: Response) => {
+  try {
+    con.query(
+      queryFetchUserByName(req.params?.id),
+      (err: any, results: any) => {
+        if (results?.length > 0) {
+          return res.status(200).json({ ok: true, users: results });
+        } else {
+          return res
+            .status(400)
+            .json({ ok: false, msg: 'Users not found.', err });
         }
       }
     );

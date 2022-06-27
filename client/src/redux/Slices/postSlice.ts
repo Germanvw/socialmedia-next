@@ -190,9 +190,17 @@ export const startPostFetchFavorite = createAsyncThunk(
 );
 export const startPostChangeFavorite = createAsyncThunk(
   'post/changeFavorite',
-  async (id: number, { rejectWithValue }) => {
+  async (id: number, { rejectWithValue, dispatch }) => {
     try {
       const { favorite, ok, post } = await postServices.postChangeFavorite(id);
+      dispatch(
+        uiActions.handleAlert({
+          status: favorite ? 'success' : 'error',
+          title: 'Success',
+          body: `Post ${favorite ? 'Added to' : 'Removed from'} Favorite List`,
+          show: true,
+        })
+      );
       if (ok) {
         return { id, favorite, post };
       }
